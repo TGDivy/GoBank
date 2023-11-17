@@ -64,9 +64,10 @@ func makeHTTPHandleFunc(f apiFunc) http.HandlerFunc {
 	}
 }
 
-func NewAPIServer(listenAddr string) *APIServer {
+func NewAPIServer(listenAddr string, store Storage) *APIServer {
 	return &APIServer{
 		listenAddr: listenAddr,
+    store: store,
 	}
 }
 func (s *APIServer) handleTransfer(w http.ResponseWriter, r *http.Request) error {
