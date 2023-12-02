@@ -20,7 +20,7 @@ func (s *APIServer) Run() {
 	router.HandleFunc("/account", makeHTTPHandleFunc(s.handleAccount))
 
 	router.HandleFunc("/account/{id}", makeHTTPHandleFunc(s.handleGetAccount))
-	log.Println("JSON API server running on port: ", s.listenAddr)
+	log.Println("JSON API server running on port ", s.listenAddr)
 
 	http.ListenAndServe(s.listenAddr, router)
 }
@@ -50,8 +50,8 @@ func (s *APIServer) handleGetAccount(w http.ResponseWriter, r *http.Request) err
 func (s *APIServer) handleCreateAccount(w http.ResponseWriter, r *http.Request) error {
 	return nil
 }
-func (s *APIServer) handleDeleteAccount(w http.ResponseWriter, r *http.Request) error {
 
+func (s *APIServer) handleDeleteAccount(w http.ResponseWriter, r *http.Request) error {
 	return nil
 }
 
@@ -67,12 +67,14 @@ func makeHTTPHandleFunc(f apiFunc) http.HandlerFunc {
 func NewAPIServer(listenAddr string, store Storage) *APIServer {
 	return &APIServer{
 		listenAddr: listenAddr,
-    store: store,
+		store:      store,
 	}
 }
+
 func (s *APIServer) handleTransfer(w http.ResponseWriter, r *http.Request) error {
 	return nil
 }
+
 func WriteJSON(w http.ResponseWriter, status int, v any) error {
 	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(status)
